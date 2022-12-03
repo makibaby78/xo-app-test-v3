@@ -16,16 +16,18 @@ function Lobby() {
   });
 
   const lobbyUserInfo = useTracker(() => {
-      Meteor.subscribe('allLobby');
-      return LobbyCollection.findOne({'username':`${user.username}`});
+    Meteor.subscribe('allLobby');
+    return LobbyCollection.findOne({'username':`${user.username}`});
   });
 
-  const lobbyOwnerInfo = UserCollection.findOne({'username':`${user.username}`});
-
+  const lobbyOwnerInfo = useTracker(() => {
+    Meteor.subscribe('allUsers');
+    return UserCollection.findOne({'username':`${user.username}`});
+  });
+ 
   const otherLobby = (username) => {
     const lobbyinfo = LobbyCollection.findOne({'username':`${username}`});
     Meteor.call('lobby.update', { lobbyId: lobbyinfo._id, opponentName: lobbyOwnerInfo.firstname, lobbyStat: true })
-    
     LobbyCollection.update(lobbyUserInfo._id, {
         $set: {
           otherlobby: {
@@ -38,7 +40,11 @@ function Lobby() {
   }
 
   const closeLobby = (id) => {
-    Meteor.call('lobby.update', { lobbyId: id, opponentName: null, lobbyStat: false })
+    Meteor.call('lobby.update', { 
+      lobbyId: id, 
+      opponentName: null, 
+      lobbyStat: false 
+    })
   }
 
   return (

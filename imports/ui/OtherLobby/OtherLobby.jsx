@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { LobbyCollection } from '../../api/lobbyinfo'
 import { useTracker } from 'meteor/react-meteor-data';
@@ -15,12 +15,10 @@ function OtherLobby() {
         return LobbyCollection.findOne({'username':`${user.username}`});
     });
 
-
     function moveTracker(index){
         const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.otherlobby.currentlobby}`});
 
         const newBoxes = [...allLobby.filter(lists => lists.username===mylobbyinfo.otherlobby.currentlobby)[0].board];
-
 
           if(newBoxes[index]===null&&otherlobbyinfo.playerturn==='O'){
             newBoxes[index] = otherlobbyinfo.playerturn;
@@ -84,8 +82,7 @@ function OtherLobby() {
             boxcounter: 1,
           }
         });
-      }
-      if(winner==='O'){
+      }else if(winner==='O'){
         LobbyCollection.update(otherlobbyinfo._id, {
           $set: {
             board: Array(9).fill(null),
@@ -95,8 +92,7 @@ function OtherLobby() {
             boxcounter: 1,
           }
         });
-      }
-      if(winner==='Draw'){
+      }else if(winner==='Draw'){
         LobbyCollection.update(otherlobbyinfo._id, {
           $set: {
             board: Array(9).fill(null),

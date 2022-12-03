@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { LobbyCollection } from '../../api/lobbyinfo'
 import { useTracker } from 'meteor/react-meteor-data';
@@ -80,8 +80,7 @@ function MyLobby() {
           boxcounter: 1,
         }
       });
-    }
-    if(winner==='O'){
+    }else if(winner==='O'){
       LobbyCollection.update(mylobbyinfo._id, {
         $set: {
           board: Array(9).fill(null),
@@ -91,8 +90,7 @@ function MyLobby() {
           boxcounter: 1,
         }
       });
-    }
-    if(winner==='Draw'){
+    }else if(winner==='Draw'){
       LobbyCollection.update(mylobbyinfo._id, {
         $set: {
           board: Array(9).fill(null),

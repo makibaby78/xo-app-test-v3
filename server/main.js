@@ -11,25 +11,13 @@ const SEED_PASSWORD = 'password';
 async function insertLink({ title, url }) {
   await LinksCollection.insertAsync({ title, url, createdAt: new Date() });
 }
-/* Running */
+
 Meteor.publish('allLobby', ()=>{
   return LobbyCollection.find();
 })
 Meteor.publish('allUsers', ()=>{
   return UserCollection.find();
 })
-/* End of running */
-// Meteor.publish('lobbyInfo', ({username})=>{
-//   return LobbyCollection.find({username});
-// })
-
-// Meteor.publish('userInfo', function(){
-//   return UserCollection.find({username: this.username});
-// })
-
-// Meteor.publish('userAll', function(){
-//   return UserCollection.find();
-// })
 
 Meteor.publish('userByUsername', ({username}) => {
   return UserCollection.find({username});

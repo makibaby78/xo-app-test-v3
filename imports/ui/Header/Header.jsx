@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { Link } from 'react-router-dom'
 import { useTracker } from 'meteor/react-meteor-data';
 import { UserCollection } from '../../api/userinfo';
+import { LobbyCollection } from '../../api/lobbyinfo';
 import './header.css'
 
 function Header() {
@@ -13,7 +14,17 @@ function Header() {
         return UserCollection.find().fetch();
     });
 
+    const lobbyinfo = useTracker(() => {
+        Meteor.subscribe('allLobby');
+        return LobbyCollection.findOne({'username':`${user.username}`});
+    });
+
     const logout = () => {
+        LobbyCollection.update(lobbyinfo._id, {
+            $set: {
+              lobby:false,
+            }
+          });
         Meteor.logout();
     }  
 

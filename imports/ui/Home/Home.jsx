@@ -14,8 +14,9 @@ function Home() {
       Meteor.subscribe('allLobby');
       return LobbyCollection.findOne({'username':`${user.username}`});
     });
-    
+
     const createlobby = () => {
+        Meteor.subscribe('allLobby');
         LobbyCollection.update(lobbyinfo._id, {
           $set: {
             lobby:true,
