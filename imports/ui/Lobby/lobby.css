@@ -1,0 +1,52 @@
+.lobby-wrapper, .m-lobby-wrapper {
+    padding: 0 15px;
+}
+.ll-wrapper {
+    cursor: pointer;
+    display: flex;
+    margin: 10px 0;
+    column-gap: 10px;
+    row-gap: 10px;
+    font-weight: 600;
+    flex-wrap: wrap;
+}
+.lobby-design {
+    border: 2px solid #3bab59;
+    background-color: #0000000f;
+    color: #666;
+    max-width: 200px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    transition-duration: 0.2s;
+    width: calc(90% - 2px);
+}
+.lobby-design span{
+    color: #666;
+}
+.lobby-box {
+    width: calc(24% - 5px);
+    display: flex;
+    column-gap: 4px;
+}
+.lobby-design:hover {
+    background-color: #0000005e;
+    color: #333;
+    transition-duration: 0.2s;
+}
+span.remove-btn {
+    color: #666;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #3bab59;
+    padding: 3px 8px;
+    margin-left: 5px;
+    border-radius: 5px;
+    width: calc(10% - 2px);
+}
+span.remove-btn:hover {
+    background-color: #0000005e;
+    color: #333;
+    transition-duration: 0.2s;
+}

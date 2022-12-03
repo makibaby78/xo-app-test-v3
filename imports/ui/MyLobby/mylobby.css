@@ -1,0 +1,113 @@
+.lobby-names {
+    display: flex;
+    justify-content: space-between;
+    max-width: 350px;
+    margin: 20px auto;
+}
+/*Board Styles*/
+.xo-board-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, calc(33% - 6px));
+    grid-template-rows: repeat(auto-fit, calc(33% - 6px));
+    grid-row: 3;
+    font-weight: 600;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    column-gap: 10px;
+    row-gap: 10px;
+    color: #fff;
+}
+.xo-ic {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+}
+/* .box.X{
+    color:#fa7d77;
+}
+.box.O{
+    color:#edff6d;
+} */
+.xo-next-round {
+    display: none;
+}
+.xo-next-round.O, .xo-next-round.X, .xo-next-round.Draw {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: #000000ad;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    row-gap: 10px;
+    font-size: 23px;
+    border-radius: 6px;
+}
+.lobby-names {
+    display: flex;
+    justify-content: space-between;
+    max-width: 350px;
+    margin: 20px auto;
+}
+.score-board {
+    display: flex;
+    column-gap: 5px;
+    justify-content: center;
+    margin: 10px;
+}
+.score-board div {
+    border-radius: 4px;
+    padding: 10px 10px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #34a853;
+    box-shadow: 2px 2px 3px 1px #0000003d;
+    -webkit-box-shadow: 2px 2px 3px 1px #0000003d;
+    -moz-box-shadow: 2px 2px 3px 1px #0000003d;
+}
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #34a853;
+    cursor: pointer;
+    background-color: #34a853;
+    border-radius: 6px;
+    box-shadow: 7px 8px 2px 1px #00000061;
+    -webkit-box-shadow: 7px 8px 2px 1px #00000061;
+    -moz-box-shadow: 7px 8px 2px 1px #00000061;
+    transition-duration: 0.2s;
+    font-size: 75px;
+}
+.box:hover {
+    box-shadow: 7px 8px 2px 1px #00000087;
+    -webkit-box-shadow: 7px 8px 2px 1px #00000087;
+    -moz-box-shadow: 7px 8px 2px 1px #00000087;
+    transition-duration: 0.2s;
+}
+h1, h4{
+    text-align: center;
+}
+button.nxt-btn {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #34a853;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    transition-duration: 0.2s;
+}
+button.nxt-btn:hover {
+    background-color: #40d167;
+    transition-duration: 0.2s;
+}

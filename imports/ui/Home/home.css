@@ -1,0 +1,25 @@
+.create-lobby {
+    background-color: #59b873;
+    color: #ffff;
+    font-weight: 600;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 13px -4px #00000042;
+    -webkit-box-shadow: 0px 5px 13px -4px #00000042;
+    -moz-box-shadow: 0px 5px 13px -4px #00000042;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+.hw-inner {
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    padding: 10px;
+}
+.create-lobby:hover{
+    background-color: #67db87;
+    transition-duration: 0.2s;
+}
+.home-wrapper{
+    width: 100%;
+}
