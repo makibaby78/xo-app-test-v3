@@ -9,6 +9,7 @@ import MyLobby from './MyLobby/MyLobby';
 import Register from './Register/Register';
 import Header from './Header/Header';
 import OtherLobby from './OtherLobby/OtherLobby';
+import Chat from './Chat/Chat'
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
@@ -28,6 +29,7 @@ return (
               <Route path="/otherlobby" element={<OtherLobby />} />
             </Routes>
             </div>
+            <Chat />
           </Router>
           ) : (
             <Router>
