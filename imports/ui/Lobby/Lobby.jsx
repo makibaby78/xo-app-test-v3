@@ -34,6 +34,7 @@ function Lobby() {
             currentlobby: lobbyinfo.username,
         }
     });
+    console.log("lobbyname set")
     navigate("/otherlobby");
   }
 
