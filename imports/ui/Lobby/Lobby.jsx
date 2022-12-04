@@ -30,10 +30,8 @@ function Lobby() {
     Meteor.call('lobby.update', { lobbyId: lobbyinfo._id, opponentName: lobbyOwnerInfo.firstname, lobbyStat: true })
     LobbyCollection.update(lobbyUserInfo._id, {
         $set: {
-          otherlobby: {
             lobbyname: lobbyinfo.firstname,
             currentlobby: lobbyinfo.username,
-          },
         }
     });
     navigate("/otherlobby");

@@ -9,16 +9,17 @@ function OtherLobby() {
         Meteor.subscribe('allLobby');
         return LobbyCollection.find().fetch();
     });
-    
+
+    console.log(allLobby)
     const mylobbyinfo = useTracker(() => {
         Meteor.subscribe('allLobby');
         return LobbyCollection.findOne({'username':`${user.username}`});
     });
 
     function moveTracker(index){
-        const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.otherlobby.currentlobby}`});
+        const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
 
-        const newBoxes = [...allLobby.filter(lists => lists.username===mylobbyinfo.otherlobby.currentlobby)[0].board];
+        const newBoxes = [...allLobby.filter(lists => lists.username===mylobbyinfo.currentlobby)[0].board];
 
           if(newBoxes[index]===null&&otherlobbyinfo.playerturn==='O'){
             newBoxes[index] = otherlobbyinfo.playerturn;
@@ -70,7 +71,7 @@ function OtherLobby() {
         }
     }
     function nextround(winner){
-      const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.otherlobby.currentlobby}`});
+      const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
 
       if(winner==='X'){
         LobbyCollection.update(otherlobbyinfo._id, {
@@ -105,12 +106,12 @@ function OtherLobby() {
     }
   return (
     <div className='m-lobby-wrapper'>
-        {allLobby.filter(lists => lists.username===mylobbyinfo.otherlobby.currentlobby).map((lists)=>{
+        {allLobby.filter(lists => lists.username===mylobbyinfo.currentlobby).map((lists)=>{
             return(
             <div key={lists._id} className='mlw-board'>
               <div className='lobby-names'>
                 <h4>You: {lists.firstname} : O</h4>
-                <h4>Host: {lists.otherlobby.lobbyname} : X</h4>
+                <h4>Host: {lists.lobbyname} : X</h4>
               </div>
               <div className='xo-content'>
                 <h4>Player's Turn: {lists.playerturn}</h4>
