@@ -10,12 +10,12 @@ function OtherLobby() {
         return LobbyCollection.find().fetch();
     });
 
-    console.log(allLobby)
     const mylobbyinfo = useTracker(() => {
         Meteor.subscribe('allLobby');
         return LobbyCollection.findOne({'username':`${user.username}`});
     });
 
+    console.log(mylobbyinfo)
     function moveTracker(index){
         const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
 
@@ -110,7 +110,11 @@ function OtherLobby() {
             return(
             <div key={lists._id} className='mlw-board'>
               <div className='lobby-names'>
-                <h4>You: {lists.lobbyname} : O</h4>
+                {allLobby.filter(lists=>lists.username===user.username).map((lists)=>{
+                  return(
+                    <h4 key={lists._id}>You: {lists.firstname} : O</h4>
+                  )
+                })}
                 <h4>Host: {lists.firstname} : X</h4>
               </div>
               <div className='xo-content'>
