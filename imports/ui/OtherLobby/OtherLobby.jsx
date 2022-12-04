@@ -15,17 +15,19 @@ function OtherLobby() {
         return LobbyCollection.findOne({'username':`${user.username}`});
     });
 
-    console.log(mylobbyinfo)
     function moveTracker(index){
         const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
 
-        const newBoxes = [...allLobby.filter(lists => lists.username===mylobbyinfo.currentlobby)[0].board];
-
+        let newBoxStat = [...allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].boxstat];
+        let newBoxes = [...allLobby.filter(lists => lists.username===mylobbyinfo.currentlobby)[0].board];
+        
           if(newBoxes[index]===null&&otherlobbyinfo.playerturn==='O'){
+            newBoxStat.splice(index, 1, true);
             newBoxes[index] = otherlobbyinfo.playerturn;
             LobbyCollection.update(otherlobbyinfo._id, {
               $set: {
                 board: newBoxes,
+                boxstat: newBoxStat,
                 playerturn: 'X',
                 boxcounter: otherlobbyinfo.boxcounter + 1,
               }
@@ -77,6 +79,7 @@ function OtherLobby() {
         LobbyCollection.update(otherlobbyinfo._id, {
           $set: {
             board: Array(9).fill(null),
+            boxstat: Array(9).fill(false),
             playerturn: 'X',
             winner: null,
             xscore: otherlobbyinfo.xscore + 1,
@@ -87,6 +90,7 @@ function OtherLobby() {
         LobbyCollection.update(otherlobbyinfo._id, {
           $set: {
             board: Array(9).fill(null),
+            boxstat: Array(9).fill(false),
             playerturn: 'X',
             winner: null,
             oscore: otherlobbyinfo.oscore + 1,
@@ -97,6 +101,7 @@ function OtherLobby() {
         LobbyCollection.update(otherlobbyinfo._id, {
           $set: {
             board: Array(9).fill(null),
+            boxstat: Array(9).fill(false),
             playerturn: 'X',
             winner: null,
             boxcounter: 1,
@@ -109,35 +114,61 @@ function OtherLobby() {
         {allLobby.filter(lists => lists.username===mylobbyinfo.currentlobby).map((lists)=>{
             return(
             <div key={lists._id} className='mlw-board'>
+              <div className='lobby-owner'>
+                <span>{lists.firstname}'s Lobby</span>
+              </div>
               <div className='lobby-names'>
-                {allLobby.filter(lists=>lists.username===user.username).map((lists)=>{
-                  return(
-                    <h4 key={lists._id}>You: {lists.firstname} : O</h4>
-                  )
-                })}
-                <h4>Host: {lists.firstname} : X</h4>
+                <div className='bg-owner owner-name'>
+                    {allLobby.filter(lists=>lists.username===user.username).map((lists)=>{
+                      return(
+                        <h4 key={lists._id}>{lists.firstname} : <span className='xo-style'>O</span></h4>
+                      )
+                    })}
+                </div>
+                <div className='bg-opponent opponent-name'>
+                  <h4>{lists.firstname} : <span className='xo-style'>X</span></h4>
+                </div>
               </div>
               <div className='xo-content'>
                 <h4>Player's Turn: {lists.playerturn}</h4>
                 <div className='score-board'>
-                  <div>
-                      <span>X: {lists.xscore}</span>
+                  <div className='bg-owner'>
+                      <span>X : {lists.xscore}</span>
                   </div>
-                  <div>
-                      <span>O: {lists.oscore}</span>
+                  <div className='bg-opponent'>
+                      <span>O : {lists.oscore}</span>
                   </div>
                 </div>
                 <div key={lists._id} className='xo-ic'>
                   <div className='xo-board-wrapper'>
-                    <div onClick={()=>{moveTracker(0)}} className='box box1'>{lists.board[0]}</div>
-                    <div onClick={()=>{moveTracker(1)}} className='box box2'>{lists.board[1]}</div>
-                    <div onClick={()=>{moveTracker(2)}} className='box box3'>{lists.board[2]}</div>
-                    <div onClick={()=>{moveTracker(3)}} className='box box4'>{lists.board[3]}</div>
-                    <div onClick={()=>{moveTracker(4)}} className='box box5'>{lists.board[4]}</div>
-                    <div onClick={()=>{moveTracker(5)}} className='box box6'>{lists.board[5]}</div>
-                    <div onClick={()=>{moveTracker(6)}} className='box box7'>{lists.board[6]}</div>
-                    <div onClick={()=>{moveTracker(7)}} className='box box8'>{lists.board[7]}</div>
-                    <div onClick={()=>{moveTracker(8)}} className='box box9'>{lists.board[8]}</div>
+                  
+                    <div onClick={()=>{moveTracker(0)}} className={lists.boxstat[0] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[0]}
+                    </div>
+                    <div onClick={()=>{moveTracker(1)}} className={lists.boxstat[1] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[1]}
+                    </div>
+                    <div onClick={()=>{moveTracker(2)}} className={lists.boxstat[2] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[2]}
+                    </div>
+                    <div onClick={()=>{moveTracker(3)}} className={lists.boxstat[3] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[3]}
+                    </div>
+                    <div onClick={()=>{moveTracker(4)}} className={lists.boxstat[4] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[4]}
+                    </div>
+                    <div onClick={()=>{moveTracker(5)}} className={lists.boxstat[5] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[5]}
+                    </div>
+                    <div onClick={()=>{moveTracker(6)}} className={lists.boxstat[6] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[6]}
+                    </div>
+                    <div onClick={()=>{moveTracker(7)}} className={lists.boxstat[7] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[7]}
+                    </div>
+                    <div onClick={()=>{moveTracker(8)}} className={lists.boxstat[8] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
+                      {lists.board[8]}
+                    </div>
                   </div>
                   <div className={`xo-next-round ${lists.winner}`}>
                         <h5>{lists.wintext}</h5>
