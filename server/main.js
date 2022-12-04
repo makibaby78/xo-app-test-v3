@@ -3,7 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { LinksCollection } from '/imports/api/links';
 import { LobbyCollection } from '../imports/api/lobbyinfo';
 import { UserCollection } from '../imports/api/userinfo';
-// import { ChatCollection } from '../imports/api/chat';
+import { ChatCollection } from '../imports/api/chat';
 
 const SEED_USERNAME = 'meteorite';
 const SEED_PASSWORD = 'password';
@@ -19,9 +19,9 @@ Meteor.publish('allLobby', ()=>{
 Meteor.publish('allUsers', ()=>{
   return UserCollection.find();
 })
-// Meteor.publish('allChat', ()=>{
-//   return ChatCollection.find();
-// })
+Meteor.publish('allChat', ()=>{
+  return ChatCollection.find();
+})
 Meteor.publish('userByUsername', ({username}) => {
   return UserCollection.find({username});
 })

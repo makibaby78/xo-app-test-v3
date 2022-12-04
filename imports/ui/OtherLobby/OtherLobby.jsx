@@ -110,8 +110,8 @@ function OtherLobby() {
             return(
             <div key={lists._id} className='mlw-board'>
               <div className='lobby-names'>
-                <h4>You: {lists.firstname} : O</h4>
-                <h4>Host: {lists.lobbyname} : X</h4>
+                <h4>You: {lists.lobbyname} : O</h4>
+                <h4>Host: {lists.firstname} : X</h4>
               </div>
               <div className='xo-content'>
                 <h4>Player's Turn: {lists.playerturn}</h4>

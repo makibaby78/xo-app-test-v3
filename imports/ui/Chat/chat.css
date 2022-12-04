@@ -8,6 +8,10 @@
     border-radius: 6px 6px 0 0;
     overflow: hidden;
 }
+.all-chat p {
+    margin: 10px 0;
+    line-height: 1.3;
+}
 .chat-header {
     background-color: #34a853;
     color: #fff;
