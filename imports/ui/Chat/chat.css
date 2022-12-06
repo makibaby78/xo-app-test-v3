@@ -1,12 +1,13 @@
 .chat-wrapper {
     position: fixed;
     bottom: 0;
-    right: 0;
+    right: 5px;
     width: 100%;
     border: 1px solid #2e994a;
     max-width: 300px;
     border-radius: 6px 6px 0 0;
     overflow: hidden;
+    background-color: #ffffffba;
     z-index: 2;
 }
 .all-chat p {

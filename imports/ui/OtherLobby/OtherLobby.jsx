@@ -152,7 +152,6 @@ function OtherLobby() {
                 </div>
                 <div key={lists._id} className='xo-ic'>
                   <div className='xo-board-wrapper'>
-                  
                     <div onClick={()=>{moveTracker(0)}} className={lists.boxstat[0] ? `show box ${lists.playerturn}`:`box ${lists.playerturn}`}>
                       {lists.board[0]}
                     </div>
@@ -181,12 +180,16 @@ function OtherLobby() {
                       {lists.board[8]}
                     </div>
                   </div>
-                  <div className={`xo-next-round ${lists.winner}`}>
+                  {/* <div className={`xo-next-round ${lists.winner}`}>
                         <h5>{lists.wintext}</h5>
                     <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
+              <div className={`next-round ${lists.winner}`}>
+                <h5>{lists.wintext}</h5>
+              <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
+            </div>
             </div>
         )})}
   </div>
