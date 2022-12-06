@@ -49,6 +49,10 @@ function Lobby() {
     <div className='lobby-wrapper'>
       <h4>Lobby</h4>
         <div className='ll-wrapper'>
+          {lobbylist.filter(lists => lists.lobby===true).length===0 ? 
+          <div className='empty-lobby'><span>Lobby is empty</span></div>
+          :
+          <>
           {lobbylist.filter(lists => lists.lobby===true).map((list)=>{
             return (
               <div className='lobby-box' key={list._id}>
@@ -58,8 +62,9 @@ function Lobby() {
                     <Link to="/mylobby" className='tc-n'>
                         <span>Your Lobby</span>
                     </Link>
-                  </div>
                     <span onClick={() => closeLobby(list._id)}  className='remove-btn'>x</span>
+                  </div>
+                    
                 </>
                 : 
                 <div onClick={()=>{otherLobby(list.username)}} className='lobby-design'>
@@ -70,7 +75,7 @@ function Lobby() {
                 }
               </div>
             )
-          })}
+          })}</>}
         </div>
     </div>
   )

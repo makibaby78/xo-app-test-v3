@@ -7,6 +7,7 @@
     max-width: 300px;
     border-radius: 6px 6px 0 0;
     overflow: hidden;
+    z-index: 2;
 }
 .all-chat p {
     margin: 10px 0;

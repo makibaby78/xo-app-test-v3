@@ -12,39 +12,50 @@
     flex-wrap: wrap;
 }
 .lobby-design {
-    border: 2px solid #3bab59;
-    background-color: #0000000f;
-    color: #666;
+    position: relative;
+    background-color: #54c6be;
     max-width: 200px;
     text-align: center;
     border-radius: 5px;
-    padding: 10px;
+    padding: 20px;
     transition-duration: 0.2s;
     width: calc(90% - 2px);
 }
+.lobby-design:hover {
+    background-color: #60dbd3;
+    color: #333;
+    transition-duration: 0.2s;
+}
+.empty-lobby{
+    cursor: default;
+    margin: auto;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f65c50;
+    color: #fff;
+}
 .lobby-design span{
-    color: #666;
+    color: #fff;
 }
 .lobby-box {
     width: calc(24% - 5px);
     display: flex;
     column-gap: 4px;
+    text-align: center;
 }
-.lobby-design:hover {
-    background-color: #0000005e;
-    color: #333;
-    transition-duration: 0.2s;
-}
+
 span.remove-btn {
-    color: #666;
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #3bab59;
-    padding: 3px 8px;
+    padding: 2px 11px;
     margin-left: 5px;
-    border-radius: 5px;
+    border-radius: 50%;
     width: calc(10% - 2px);
+    position: absolute;
+    top: 2px;
+    right: 2px;
 }
 span.remove-btn:hover {
     background-color: #0000005e;

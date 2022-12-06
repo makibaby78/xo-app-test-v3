@@ -4,13 +4,15 @@
     left: 0;
     right: 0;
     height: 50px;
-    box-shadow: 0px 5px 13px -4px #00000042;
-    -webkit-box-shadow: 0px 5px 13px -4px #00000042;
-    -moz-box-shadow: 0px 5px 13px -4px #00000042;
+    box-shadow: 0 5px 13px -4px rgb(0 0 0 / 26%);
+    -webkit-box-shadow: 0 5px 13px -4px rgb(0 0 0 / 26%);
+    -moz-box-shadow: 0 5px 13px -4px rgba(0,0,0,.25882352941176473);
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
+    z-index: 10;
 }
 .user-name{
     font-weight: 600;

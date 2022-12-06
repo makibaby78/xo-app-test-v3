@@ -4,7 +4,7 @@
     height: 100px;
 }
 .pt {
-    background-color: red;
+    background-color: #f65c50;
     border-radius: 5px;
     width: fit-content;
     padding: 15px 20px;
@@ -36,29 +36,29 @@
     animation-name: right-in;
 }
 .players-turn-o{
-    right: -300px;
+    right: -500px;
 }
 .players-turn-x{
-    left: -300px;
+    left: -500px;
 }
 .stop .pt{
     animation-name: unset !important;
 }
 @keyframes left-in{
-    from {left: -100%;}
+    from {left: -500px;}
     to { left: 50%;}
 }
 @keyframes left-out {
     from {left: 50%;}
-    to { left: -100%;}
+    to { left: -500px;}
 }
 @keyframes right-in{
-    from {right: -100%;}
+    from {right: -500px;}
     to { right: 50%;}
 }
 @keyframes right-out {
     from {right: 50%;}
-    to { right: -100%;}
+    to { right: -500px;}
 }
 .lobby-names {
     display: flex;
@@ -106,11 +106,11 @@
     align-items: center;
     column-gap: 12px;
 }
-.O:hover::after {
+.box.O:hover::after {
     content: 'O';
     color: #fff6;
 }
-.X:hover::after {
+.box.X:hover::after {
     content: 'X';
     color: #fff6;
 }
@@ -206,7 +206,6 @@ button.nxt-btn:hover {
     background-color: #40d167;
     transition-duration: 0.2s;
 }
-
 .mlw-board h3{
     text-align: center;
 }
@@ -217,4 +216,23 @@ button.nxt-btn:hover {
     border-radius: 5px;
     margin: auto;
     width: fit-content;
+}
+.next-round{
+    display: none;
+}
+.next-round.O, .next-round.X, .next-round.Draw {
+    position: fixed;
+    top: 0;
+    background-color: #000000d9;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: center;
+    justify-content: center;
+    color: #Fff;
+    font-size: 30px;
 }

@@ -180,14 +180,19 @@ function MyLobby() {
                         {lists.board[8]}
                       </div>
                     </div>
-                    <div className={`xo-next-round ${lists.winner}`}>
+                    {/* <div className={`xo-next-round ${lists.winner}`}>
                       <h5>{lists.wintext}</h5>
-                        <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
-                    </div>
+                      <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
+                    </div> */}
                   </div>
               </div>
+            <div className={`next-round ${lists.winner}`}>
+              <h5>{lists.wintext}</h5>
+              <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
             </div>
-            )})}
+          </div>
+          )
+        })}
     </div>
   )
 }
