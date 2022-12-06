@@ -30,7 +30,7 @@ function OtherLobby() {
         })
       }
     } 
-
+    
     function moveTracker(index){
         const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
 
@@ -64,33 +64,33 @@ function OtherLobby() {
                   stopper: 'stop',
                 }
               });
-            }
-          }else if(newBoxes[0]==='X'&&newBoxes[1]==='X'&&newBoxes[2]==='X'||
-          newBoxes[3]==='X'&&newBoxes[4]==='X'&&newBoxes[5]==='X'||
-          newBoxes[6]==='X'&&newBoxes[7]==='X'&&newBoxes[8]==='X'||
-          newBoxes[0]==='X'&&newBoxes[3]==='X'&&newBoxes[6]==='X'||
-          newBoxes[1]==='X'&&newBoxes[4]==='X'&&newBoxes[7]==='X'||
-          newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
-          newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
-          newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
-            playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
-            LobbyCollection.update(otherlobbyinfo._id, {
-              $set: {
-                winner: 'X',
-                wintext:'Player X wins',
-                stopper: 'stop',
-              }
-            });
-          }else if(otherlobbyinfo.boxcounter===9){
-            playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
-            LobbyCollection.update(otherlobbyinfo._id, {
-              $set: {
-                winner: 'Draw',
-                wintext: 'Draw',
-                stopper: 'stop',
-              }
+            }else if(newBoxes[0]==='X'&&newBoxes[1]==='X'&&newBoxes[2]==='X'||
+            newBoxes[3]==='X'&&newBoxes[4]==='X'&&newBoxes[5]==='X'||
+            newBoxes[6]==='X'&&newBoxes[7]==='X'&&newBoxes[8]==='X'||
+            newBoxes[0]==='X'&&newBoxes[3]==='X'&&newBoxes[6]==='X'||
+            newBoxes[1]==='X'&&newBoxes[4]==='X'&&newBoxes[7]==='X'||
+            newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
+            newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
+            newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
+              playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
+              LobbyCollection.update(otherlobbyinfo._id, {
+                $set: {
+                  winner: 'X',
+                  wintext:'Player X wins',
+                  stopper: 'stop',
+                }
               });
+            }else if(otherlobbyinfo.boxcounter===9){
+              playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
+              LobbyCollection.update(otherlobbyinfo._id, {
+                $set: {
+                  winner: 'Draw',
+                  wintext: 'Draw',
+                  stopper: 'stop',
+                }
+                });
             }
+          }
         }
     }
 
@@ -102,10 +102,10 @@ function OtherLobby() {
           $set: {
             board: Array(9).fill(null),
             boxstat: Array(9).fill(false),
-            playerturn: 'X',
+            playerturn: otherlobbyinfo.playerfirstturn,
             winner: null,
             xscore: otherlobbyinfo.xscore + 1,
-            boxcounter: 0,
+            boxcounter: 1,
             stopper: null,
           }
         });
@@ -114,7 +114,7 @@ function OtherLobby() {
           $set: {
             board: Array(9).fill(null),
             boxstat: Array(9).fill(false),
-            playerturn: 'X',
+            playerturn: otherlobbyinfo.playerfirstturn,
             winner: null,
             oscore: otherlobbyinfo.oscore + 1,
             boxcounter: 1,
@@ -126,7 +126,7 @@ function OtherLobby() {
           $set: {
             board: Array(9).fill(null),
             boxstat: Array(9).fill(false),
-            playerturn: 'X',
+            playerturn: otherlobbyinfo.playerfirstturn,
             winner: null,
             boxcounter: 1,
             stopper: null,
@@ -198,10 +198,6 @@ function OtherLobby() {
                       {lists.board[8]}
                     </div>
                   </div>
-                  {/* <div className={`xo-next-round ${lists.winner}`}>
-                        <h5>{lists.wintext}</h5>
-                    <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
-                  </div> */}
                 </div>
               </div>
               <div className={`next-round ${lists.winner}`}>

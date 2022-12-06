@@ -36,59 +36,61 @@ function MyLobby() {
   function moveTracker(index){
     let newBoxes = [...allLobby.filter(lists => lists.username===user.username)[0].board];
     let newBoxStat = [...allLobby.filter(lists => lists.username===user.username)[0].boxstat];
-    if(newBoxes[index]===null&&mylobbyinfo.playerturn==='X'){
-      newBoxStat.splice(index, 1, true);
-      newBoxes[index] = mylobbyinfo.playerturn;
-      LobbyCollection.update(mylobbyinfo._id, {
-        $set: {
-          board: newBoxes,
-          boxstat: newBoxStat,
-          playerturn: 'O',
-          boxcounter: mylobbyinfo.boxcounter + 1,
+    if(mylobbyinfo.playerturn==='X'){
+      if(newBoxes[index]===null){
+        newBoxStat.splice(index, 1, true);
+        newBoxes[index] = mylobbyinfo.playerturn;
+        LobbyCollection.update(mylobbyinfo._id, {
+          $set: {
+            board: newBoxes,
+            boxstat: newBoxStat,
+            playerturn: 'O',
+            boxcounter: mylobbyinfo.boxcounter + 1,
+          }
+        });
+        if(newBoxes[0]==='X'&&newBoxes[1]==='X'&&newBoxes[2]==='X'||
+        newBoxes[3]==='X'&&newBoxes[4]==='X'&&newBoxes[5]==='X'||
+        newBoxes[6]==='X'&&newBoxes[7]==='X'&&newBoxes[8]==='X'||
+        newBoxes[0]==='X'&&newBoxes[3]==='X'&&newBoxes[6]==='X'||
+        newBoxes[1]==='X'&&newBoxes[4]==='X'&&newBoxes[7]==='X'||
+        newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
+        newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
+        newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
+          playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
+          LobbyCollection.update(mylobbyinfo._id, {
+            $set: {
+              winner: 'X',
+              wintext: 'Player X wins',
+              stopper: 'stop',
+            }
+          });
+        }else if(newBoxes[0]==='O'&&newBoxes[1]==='O'&&newBoxes[2]==='O'||
+        newBoxes[3]==='O'&&newBoxes[4]==='O'&&newBoxes[5]==='O'||
+        newBoxes[6]==='O'&&newBoxes[7]==='O'&&newBoxes[8]==='O'||
+        newBoxes[0]==='O'&&newBoxes[3]==='O'&&newBoxes[6]==='O'||
+        newBoxes[1]==='O'&&newBoxes[4]==='O'&&newBoxes[7]==='O'||
+        newBoxes[2]==='O'&&newBoxes[5]==='O'&&newBoxes[8]==='O'||
+        newBoxes[0]==='O'&&newBoxes[4]==='O'&&newBoxes[8]==='O'||
+        newBoxes[2]==='O'&&newBoxes[4]==='O'&&newBoxes[6]==='O'){
+          playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
+          LobbyCollection.update(mylobbyinfo._id, {
+            $set: {
+              winner: 'O',
+              wintext: 'Player O wins',
+              stopper: 'stop',
+            }
+          });
+        }else if(mylobbyinfo.boxcounter===9){
+          playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
+          LobbyCollection.update(mylobbyinfo._id, {
+            $set: {
+              winner: 'Draw',
+              wintext: 'Draw',
+              stopper: 'stop',
+            }
+          });
+          console.log("Draw")
         }
-      });
-      if(newBoxes[0]==='X'&&newBoxes[1]==='X'&&newBoxes[2]==='X'||
-      newBoxes[3]==='X'&&newBoxes[4]==='X'&&newBoxes[5]==='X'||
-      newBoxes[6]==='X'&&newBoxes[7]==='X'&&newBoxes[8]==='X'||
-      newBoxes[0]==='X'&&newBoxes[3]==='X'&&newBoxes[6]==='X'||
-      newBoxes[1]==='X'&&newBoxes[4]==='X'&&newBoxes[7]==='X'||
-      newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
-      newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
-      newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
-        playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
-        LobbyCollection.update(mylobbyinfo._id, {
-          $set: {
-            winner: 'X',
-            wintext: 'Player X wins',
-            stopper: 'stop',
-          }
-        });
-      }else if(newBoxes[0]==='O'&&newBoxes[1]==='O'&&newBoxes[2]==='O'||
-      newBoxes[3]==='O'&&newBoxes[4]==='O'&&newBoxes[5]==='O'||
-      newBoxes[6]==='O'&&newBoxes[7]==='O'&&newBoxes[8]==='O'||
-      newBoxes[0]==='O'&&newBoxes[3]==='O'&&newBoxes[6]==='O'||
-      newBoxes[1]==='O'&&newBoxes[4]==='O'&&newBoxes[7]==='O'||
-      newBoxes[2]==='O'&&newBoxes[5]==='O'&&newBoxes[8]==='O'||
-      newBoxes[0]==='O'&&newBoxes[4]==='O'&&newBoxes[8]==='O'||
-      newBoxes[2]==='O'&&newBoxes[4]==='O'&&newBoxes[6]==='O'){
-        playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
-        LobbyCollection.update(mylobbyinfo._id, {
-          $set: {
-            winner: 'O',
-            wintext: 'Player O wins',
-            stopper: 'stop',
-          }
-        });
-      }else if(mylobbyinfo.boxcounter===9){
-        playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
-        LobbyCollection.update(mylobbyinfo._id, {
-          $set: {
-            winner: 'Draw',
-            wintext: 'Draw',
-            stopper: 'stop',
-          }
-        });
-        console.log("Draw")
       }
     }
   }
