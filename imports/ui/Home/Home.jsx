@@ -28,6 +28,7 @@ function Home() {
             oscore: 0,
             xscore: 0,
             boxcounter: 1,
+            stopper: null,
           }
         });
         navigate("/mylobby");

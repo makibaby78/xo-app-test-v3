@@ -45,6 +45,7 @@ function MyLobby() {
           $set: {
             winner: 'X',
             wintext: 'Player X wins',
+            stopper: 'stop',
           }
         });
       }else if(newBoxes[0]==='O'&&newBoxes[1]==='O'&&newBoxes[2]==='O'||
@@ -59,6 +60,7 @@ function MyLobby() {
           $set: {
             winner: 'O',
             wintext: 'Player O wins',
+            stopper: 'stop',
           }
         });
       }else if(mylobbyinfo.boxcounter===9){
@@ -66,6 +68,7 @@ function MyLobby() {
           $set: {
             winner: 'Draw',
             wintext: 'Draw',
+            stopper: 'stop',
           }
         });
         console.log("Draw")
@@ -83,6 +86,7 @@ function MyLobby() {
           winner: null,
           xscore: mylobbyinfo.xscore + 1,
           boxcounter: 1,
+          stopper: null,
         }
       });
     }else if(winner==='O'){
@@ -94,6 +98,7 @@ function MyLobby() {
           winner: null,
           oscore: mylobbyinfo.oscore + 1,
           boxcounter: 1,
+          stopper: null,
         }
       });
     }else if(winner==='Draw'){
@@ -104,6 +109,7 @@ function MyLobby() {
           playerturn: 'X',
           winner: null,
           boxcounter: 1,
+          stopper: null,
         }
       });
     }
@@ -118,7 +124,6 @@ function MyLobby() {
               <span>My Lobby</span>
             </div>
             <div className='lobby-names'>
-              
               <div className='bg-owner owner-name'>
                 <h4>{lists.firstname}  : <span className='xo-style'>X</span></h4>
               </div>
@@ -128,6 +133,10 @@ function MyLobby() {
                   <h4>{lists.opponent} : <span className='xo-style'>O</span></h4>
                 }
               </div>
+            </div>
+            <div className={`pt-wrapper ${lists.playerturn} ${lists.stopper}`}>
+              <div className='pt players-turn-x'>YOUR TURN</div>
+              <div className='pt players-turn-o'>OPPONENTS TURN</div>
             </div>
               <div key={lists._id} className='xo-content'>
                   <div>   

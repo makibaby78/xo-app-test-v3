@@ -1,5 +1,6 @@
 .lobby-wrapper, .m-lobby-wrapper {
-    padding: 0 15px;
+    padding: 15px;
+    overflow: hidden;
 }
 .ll-wrapper {
     cursor: pointer;

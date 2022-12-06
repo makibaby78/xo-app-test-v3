@@ -27,12 +27,12 @@ Meteor.publish('userByUsername', ({username}) => {
 })
 
 Meteor.startup(async () => {
-  if (!Accounts.findUserByUsername(SEED_USERNAME)) {
-    Accounts.createUser({
-      username: SEED_USERNAME,
-      password: SEED_PASSWORD,
-    });
-  }
+  // if (!Accounts.findUserByUsername(SEED_USERNAME)) {
+  //   Accounts.createUser({
+  //     username: SEED_USERNAME,
+  //     password: SEED_PASSWORD,
+  //   });
+  // }
   // If the Links collection is empty, add some data.
   if (await LinksCollection.find().countAsync() === 0) {
     await insertLink({

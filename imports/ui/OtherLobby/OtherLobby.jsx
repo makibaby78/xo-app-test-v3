@@ -20,8 +20,8 @@ function OtherLobby() {
 
         let newBoxStat = [...allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].boxstat];
         let newBoxes = [...allLobby.filter(lists => lists.username===mylobbyinfo.currentlobby)[0].board];
-        
-          if(newBoxes[index]===null&&otherlobbyinfo.playerturn==='O'){
+        if(otherlobbyinfo.playerturn==='O'){
+          if(newBoxes[index]===null){
             newBoxStat.splice(index, 1, true);
             newBoxes[index] = otherlobbyinfo.playerturn;
             LobbyCollection.update(otherlobbyinfo._id, {
@@ -45,6 +45,7 @@ function OtherLobby() {
                 $set: {
                   winner: 'O',
                   wintext: 'Player O wins',
+                  stopper: 'stop',
                 }
               });
             }
@@ -61,6 +62,7 @@ function OtherLobby() {
               $set: {
                 winner: 'X',
                 wintext:'Player X wins',
+                stopper: 'stop',
               }
             });
           }else if(otherlobbyinfo.boxcounter===9){
@@ -68,8 +70,10 @@ function OtherLobby() {
             $set: {
               winner: 'Draw',
               wintext: 'Draw',
+              stopper: 'stop',
             }
-          });
+            });
+          }
         }
     }
     function nextround(winner){
@@ -83,7 +87,8 @@ function OtherLobby() {
             playerturn: 'X',
             winner: null,
             xscore: otherlobbyinfo.xscore + 1,
-            boxcounter: 1,
+            boxcounter: 0,
+            stopper: null,
           }
         });
       }else if(winner==='O'){
@@ -95,6 +100,7 @@ function OtherLobby() {
             winner: null,
             oscore: otherlobbyinfo.oscore + 1,
             boxcounter: 1,
+            stopper: null,
           }
         });
       }else if(winner==='Draw'){
@@ -105,6 +111,7 @@ function OtherLobby() {
             playerturn: 'X',
             winner: null,
             boxcounter: 1,
+            stopper: null,
           }
         });
       }
@@ -128,6 +135,10 @@ function OtherLobby() {
                 <div className='bg-opponent opponent-name'>
                   <h4>{lists.firstname} : <span className='xo-style'>X</span></h4>
                 </div>
+              </div>
+              <div className={`pt-wrapper ${lists.playerturn} ${lists.stopper}`}>
+                <div className='pt players-turn-o'>YOUR TURN</div>
+                <div className='pt players-turn-x'>OPPONENTS TURN</div>
               </div>
               <div className='xo-content'>
                 <h4>Player's Turn: {lists.playerturn}</h4>
