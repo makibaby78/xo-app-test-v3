@@ -23,6 +23,7 @@ function Home() {
             board: Array(9).fill(null),
             boxstat: Array(9).fill(false),
             playerturn: 'X',
+            playerfirstturn: 'X',
             opponent: null,
             winner: null,
             oscore: 0,

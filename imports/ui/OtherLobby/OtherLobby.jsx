@@ -15,6 +15,22 @@ function OtherLobby() {
         return LobbyCollection.findOne({'username':`${user.username}`});
     });
 
+    function playerfirst(turn){
+      if(turn==='X'){
+        LobbyCollection.update(mylobbyinfo._id, {
+          $set: {
+            playerfirstturn: 'O',
+          }
+        })
+      }else if(turn==='O'){
+        LobbyCollection.update(mylobbyinfo._id, {
+          $set: {
+            playerfirstturn: 'X'
+          }
+        })
+      }
+    } 
+
     function moveTracker(index){
         const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
 
@@ -40,7 +56,7 @@ function OtherLobby() {
             newBoxes[2]==='O'&&newBoxes[5]==='O'&&newBoxes[8]==='O'||
             newBoxes[0]==='O'&&newBoxes[4]==='O'&&newBoxes[8]==='O'||
             newBoxes[2]==='O'&&newBoxes[4]==='O'&&newBoxes[6]==='O'){
-              console.log("Player O wins")
+              playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
               LobbyCollection.update(otherlobbyinfo._id, {
                 $set: {
                   winner: 'O',
@@ -57,7 +73,7 @@ function OtherLobby() {
           newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
           newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
           newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
-            console.log("Player X wins")
+            playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
             LobbyCollection.update(otherlobbyinfo._id, {
               $set: {
                 winner: 'X',
@@ -66,16 +82,18 @@ function OtherLobby() {
               }
             });
           }else if(otherlobbyinfo.boxcounter===9){
-          LobbyCollection.update(otherlobbyinfo._id, {
-            $set: {
-              winner: 'Draw',
-              wintext: 'Draw',
-              stopper: 'stop',
+            playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
+            LobbyCollection.update(otherlobbyinfo._id, {
+              $set: {
+                winner: 'Draw',
+                wintext: 'Draw',
+                stopper: 'stop',
+              }
+              });
             }
-            });
-          }
         }
     }
+
     function nextround(winner){
       const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
 

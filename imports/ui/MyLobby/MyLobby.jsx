@@ -17,7 +17,21 @@ function MyLobby() {
     return LobbyCollection.findOne({'username':`${user.username}`});
   });
 
-  console.log(mylobbyinfo)
+  function playerfirst(turn){
+    if(turn==='X'){
+      LobbyCollection.update(mylobbyinfo._id, {
+        $set: {
+          playerfirstturn: 'O',
+        }
+      })
+    }else if(turn==='O'){
+      LobbyCollection.update(mylobbyinfo._id, {
+        $set: {
+          playerfirstturn: 'X'
+        }
+      })
+    }
+  } 
 
   function moveTracker(index){
     let newBoxes = [...allLobby.filter(lists => lists.username===user.username)[0].board];
@@ -41,6 +55,7 @@ function MyLobby() {
       newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
       newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
       newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
+        playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
         LobbyCollection.update(mylobbyinfo._id, {
           $set: {
             winner: 'X',
@@ -56,6 +71,7 @@ function MyLobby() {
       newBoxes[2]==='O'&&newBoxes[5]==='O'&&newBoxes[8]==='O'||
       newBoxes[0]==='O'&&newBoxes[4]==='O'&&newBoxes[8]==='O'||
       newBoxes[2]==='O'&&newBoxes[4]==='O'&&newBoxes[6]==='O'){
+        playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
         LobbyCollection.update(mylobbyinfo._id, {
           $set: {
             winner: 'O',
@@ -64,6 +80,7 @@ function MyLobby() {
           }
         });
       }else if(mylobbyinfo.boxcounter===9){
+        playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
         LobbyCollection.update(mylobbyinfo._id, {
           $set: {
             winner: 'Draw',
@@ -75,14 +92,13 @@ function MyLobby() {
       }
     }
   }
-
   function nextround(winner){
     if(winner==='X'){
       LobbyCollection.update(mylobbyinfo._id, {
         $set: {
           board: Array(9).fill(null),
           boxstat: Array(9).fill(false),
-          playerturn: 'X',
+          playerturn: mylobbyinfo.playerfirstturn,
           winner: null,
           xscore: mylobbyinfo.xscore + 1,
           boxcounter: 1,
@@ -94,7 +110,7 @@ function MyLobby() {
         $set: {
           board: Array(9).fill(null),
           boxstat: Array(9).fill(false),
-          playerturn: 'X',
+          playerturn: mylobbyinfo.playerfirstturn,
           winner: null,
           oscore: mylobbyinfo.oscore + 1,
           boxcounter: 1,
@@ -106,7 +122,7 @@ function MyLobby() {
         $set: {
           board: Array(9).fill(null),
           boxstat: Array(9).fill(false),
-          playerturn: 'X',
+          playerturn: mylobbyinfo.playerfirstturn,
           winner: null,
           boxcounter: 1,
           stopper: null,
