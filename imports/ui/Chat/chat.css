@@ -68,10 +68,24 @@
     cursor: pointer;
     background-color: #34a853;
     border-radius: 15px;
-    padding: 0px 6px 6px 6px;
+    padding: 0px 8px 2px 8px;
     transition-duration: 0.2s;
 }
 .icon-wrapper:hover{
     background-color: #366844;
     transition-duration: 0.2s;
+}
+/* scroll bar style */
+.all-chat::-webkit-scrollbar {
+    width: 10px;
+}
+.all-chat::-webkit-scrollbar-track {
+    background: transparent; 
+}
+.all-chat::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+}
+.all-chat::-webkit-scrollbar-thumb:hover {
+    background: #999; 
 }

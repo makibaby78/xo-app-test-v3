@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Meteor } from 'meteor/meteor'
 import { useTracker } from 'meteor/react-meteor-data';
 import { UserCollection } from '../../api/userinfo';
@@ -9,6 +9,7 @@ import './chat.css'
 function Chat() {
     const [hide, setHide] = useState('hide')
     const [chat, setChat] = useState('');
+    const bottomRef = useRef(null)
 
     const user = useTracker(() => Meteor.user());
 
@@ -34,10 +35,16 @@ function Chat() {
     function minimize(){
         if(hide==='hide'){
             setHide('show')
+            bottomRef.current?.scrollIntoView({behavior: 'smooth'});
         }else{
             setHide('hide')
         }
     }
+
+    useEffect(() => {
+        // 👇️ scroll to bottom every time messages change
+        bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+    }, [chat]);
 
   return (
     <div className='chat-wrapper'>
@@ -54,6 +61,7 @@ function Chat() {
                         <p key={lists._id}>{lists.chattext}</p>
                     )
                 })}
+                <div ref={bottomRef} />
                 </div>
                 <div className='send-chat'>
                     <div onClick={sendChat} className='des-chat'>Chat</div>
