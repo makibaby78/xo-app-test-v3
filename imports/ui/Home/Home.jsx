@@ -2,7 +2,7 @@ import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { useTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom'
-import { LobbyCollection } from '/imports/api/lobbyinfo';
+import { LobbyCollection } from '../../api/lobbyinfo';
 import { useNavigate } from "react-router-dom";
 import './home.css'
 
@@ -19,6 +19,8 @@ function Home() {
         Meteor.subscribe('allLobby');
         LobbyCollection.update(lobbyinfo._id, {
           $set: {
+            currentlobby: null,
+            lobbyname: null,
             lobby:true,
             board: Array(9).fill(null),
             boxstat: Array(9).fill(false),

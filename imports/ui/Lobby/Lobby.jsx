@@ -36,7 +36,7 @@ function Lobby() {
     });
     navigate("/otherlobby");
   }
-
+  console.log(lobbylist)
   const closeLobby = (id) => {
     Meteor.call('lobby.update', { 
       lobbyId: id, 
@@ -64,14 +64,39 @@ function Lobby() {
                     </Link>
                     <span onClick={() => closeLobby(list._id)}  className='remove-btn'>x</span>
                   </div>
-                    
                 </>
-                : 
-                <div onClick={()=>{otherLobby(list.username)}} className='lobby-design'>
-                  <span>
-                    {list.firstname} {list.lastname}
-                  </span>
-                </div>
+                :
+                <>
+                  {list.opponent!=null?
+                  (
+                    <>
+                    {list.opponent===lobbyUserInfo.firstname?(
+                      <div onClick={()=>{otherLobby(list.username)}} className='lobby-design'>
+                        <span className='text-full'>Current Lobby</span>
+                        <span>
+                          {list.firstname} {list.lastname}
+                        </span>
+                      </div>
+                      ):(
+                      <div className='lobby-design'>
+                        <span className='text-full'>Lobby Full</span>
+                        <span>
+                          {list.firstname} {list.lastname}
+                        </span>
+                        <div className='lobby-full'>
+                        </div>
+                      </div>
+                      )}
+                    </>
+                  ):(
+                    <div onClick={()=>{otherLobby(list.username)}} className='lobby-design'>
+                      <span>
+                        {list.firstname} {list.lastname}
+                      </span>
+                    </div>
+                  )
+                  }
+                </>
                 }
               </div>
             )

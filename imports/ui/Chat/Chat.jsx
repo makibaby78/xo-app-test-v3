@@ -32,7 +32,6 @@ function Chat() {
     }
     
     function minimize(){
-        console.log("minimize")
         if(hide==='hide'){
             setHide('show')
         }else{

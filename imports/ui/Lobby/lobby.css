@@ -6,6 +6,7 @@
     cursor: pointer;
     display: flex;
     margin: 10px 0;
+    margin-top: 50px;
     column-gap: 10px;
     row-gap: 10px;
     font-weight: 600;
@@ -20,6 +21,9 @@
     padding: 20px;
     transition-duration: 0.2s;
     width: calc(90% - 2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .lobby-design:hover {
     background-color: #60dbd3;
@@ -43,7 +47,26 @@
     column-gap: 4px;
     text-align: center;
 }
-
+.lobby-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000061;
+    font-size: 24px;
+    color: #000;
+    border-radius: 5px;
+}
+span.text-full {
+    position: absolute;
+    top: -23px;
+    color: #000;
+    font-size: 12px;
+    text-align: center;
+    left: 0;
+    right: 0;
+}
 span.remove-btn {
     color: #000;
     display: flex;
