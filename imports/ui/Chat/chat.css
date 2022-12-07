@@ -13,6 +13,8 @@
 .all-chat p {
     margin: 10px 0;
     line-height: 1.3;
+    overflow-wrap: anywhere;
+    margin-right: 10px;
 }
 .chat-header {
     background-color: #34a853;

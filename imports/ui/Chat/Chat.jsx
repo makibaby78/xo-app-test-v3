@@ -32,10 +32,16 @@ function Chat() {
         setChat('')
     }
     
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            Meteor.call('chat.insert', { chattext: `${userInfo.firstname} : ${chat}` })
+            setChat('')
+        }
+      };
+
     function minimize(){
         if(hide==='hide'){
             setHide('show')
-            bottomRef.current?.scrollIntoView({behavior: 'smooth'});
         }else{
             setHide('hide')
         }
@@ -44,7 +50,7 @@ function Chat() {
     useEffect(() => {
         // 👇️ scroll to bottom every time messages change
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-    }, [chat]);
+    }, [allChat]);
 
   return (
     <div className='chat-wrapper'>
@@ -65,7 +71,7 @@ function Chat() {
                 </div>
                 <div className='send-chat'>
                     <div onClick={sendChat} className='des-chat'>Chat</div>
-                    <input className='in-chat' type='text' onChange={handleChange} value={chat} />
+                    <input className='in-chat' type='text' onKeyDown={handleKeyDown} onChange={handleChange} value={chat} />
                 </div>
             </div>
         </div>
