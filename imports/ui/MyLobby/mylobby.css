@@ -216,6 +216,9 @@ button.nxt-btn:hover {
 .next-round{
     display: none;
 }
+.xo-content h4 {
+    text-align: center;
+}
 .next-round.O, .next-round.X, .next-round.Draw {
     position: fixed;
     top: 0;
