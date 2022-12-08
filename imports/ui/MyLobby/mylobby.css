@@ -186,10 +186,6 @@
     transition-duration: 0.2s;
     font-size: 75px;
 }
-
-h1, h4{
-    text-align: center;
-}
 button.nxt-btn {
     padding: 8px 12px;
     border-radius: 5px;

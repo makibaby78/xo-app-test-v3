@@ -36,7 +36,6 @@ function Lobby() {
     });
     navigate("/otherlobby");
   }
-  console.log(lobbylist)
   const closeLobby = (id) => {
     Meteor.call('lobby.update', { 
       lobbyId: id, 

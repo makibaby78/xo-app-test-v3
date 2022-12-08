@@ -8,7 +8,7 @@ import './chat.css'
 
 function Chat() {
     const [hide, setHide] = useState('hide')
-    const [chat, setChat] = useState('');
+    const [chat, setChat] = useState('')
     const bottomRef = useRef(null)
 
     const user = useTracker(() => Meteor.user());
@@ -16,16 +16,16 @@ function Chat() {
     const allChat = useTracker(() => {
         Meteor.subscribe('allChat');
         return ChatCollection.find().fetch();
-    });
+    })
 
     const handleChange = e => {
         setChat(e.target.value);
-    };
+    }
 
     const userInfo = useTracker(() => {
         Meteor.subscribe('allUsers');
         return UserCollection.findOne({'username':`${user.username}`});
-    });
+    })
 
     const sendChat = () => {
         Meteor.call('chat.insert', { chattext: `${userInfo.firstname} : ${chat}` })
@@ -37,7 +37,7 @@ function Chat() {
             Meteor.call('chat.insert', { chattext: `${userInfo.firstname} : ${chat}` })
             setChat('')
         }
-      };
+    }
 
     function minimize(){
         if(hide==='hide'){
@@ -48,7 +48,6 @@ function Chat() {
     }
 
     useEffect(() => {
-        // 👇️ scroll to bottom every time messages change
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
     }, [allChat]);
 

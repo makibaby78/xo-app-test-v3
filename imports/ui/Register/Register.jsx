@@ -13,9 +13,9 @@ function Register() {
 
   const submit = e => {
     e.preventDefault();
-    Meteor.call('userinfo.insert', { username:username, firstname:firstname, lastname:lastname, email: email, password: password })
+    Meteor.call('userinfo.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), email: email, password: password })
 
-    Meteor.call('lobby.insert', { username:username, firstname:firstname, lastname:lastname, lobby: false, opponent: null, board: Array(9).fill(null)})
+    Meteor.call('lobby.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), lobby: false, opponent: null, board: Array(9).fill(null)})
 
     Accounts.createUser({
       username: username,
