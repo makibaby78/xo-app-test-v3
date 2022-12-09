@@ -1,23 +1,38 @@
 .pt-wrapper{
     position: relative;
     width: 100%;
-    height: 100px;
+    height: 150px;
 }
 .pt {
-    background-color: #f65c50;
-    border-radius: 5px;
-    width: fit-content;
-    padding: 15px 20px;
-    color: #FFF;
-    font-weight: 800;
     position: absolute;
     top: 50%;
+    color: #FFF;
+    font-weight: 800;
     transform: translate(-50%, -50%);
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
     transition-duration: 0.3s;
     font-size: 20px;
+}
+.pt-ptx-inner {
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.pt-text-style {
+    background-color: #f65c50;
+    border-radius: 5px;
+    padding: 15px 20px;
+    white-space: nowrap;
+}
+.pt-owner-image img{
+    object-fit: cover;
+    object-position: center;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
 }
 .pt-wrapper.O .players-turn-x{
     transform: translate(50%, -50%);
@@ -36,29 +51,29 @@
     animation-name: right-in;
 }
 .players-turn-o{
-    right: -500px;
+    right: -600px;
 }
 .players-turn-x{
-    left: -500px;
+    left: -600px;
 }
 .stop .pt{
     animation-name: unset !important;
 }
 @keyframes left-in{
-    from {left: -500px;}
+    from {left: -600px;}
     to { left: 50%;}
 }
 @keyframes left-out {
     from {left: 50%;}
-    to { left: -500px;}
+    to { left: -600px;}
 }
 @keyframes right-in{
-    from {right: -500px;}
+    from {right: -600px;}
     to { right: 50%;}
 }
 @keyframes right-out {
     from {right: 50%;}
-    to { right: -500px;}
+    to { right: -600px;}
 }
 .lobby-names {
     display: flex;

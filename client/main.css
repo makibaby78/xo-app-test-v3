@@ -30,31 +30,34 @@
 form.login-form .il-block {
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
   justify-content: space-between;
 }
 
 form.login-form{
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
+  row-gap: 10px;
 }
 .login-form input {
-  height: 15px;
   background-color: #00000017;
 }
 .login-form button, .login-form input {
-  padding: 5px;
+  padding: 10px;
   outline: none;
   border: none;
-  border-radius: 2px;
-  height: 30px;
+  border-radius: 50px;
 }
 .login-form button{
   cursor: pointer;
   background-color: #34a853;
   color: #fff;
+  transition-duration: 0.2s;
 }
+.login-form button:hover{
+  background-color: #40d167;
+  transition-duration: 0.2s;
+}
+
 .t-center{
   text-align: center;
 }

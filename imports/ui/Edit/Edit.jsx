@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { UserCollection } from '../../api/userinfo';
+import { LobbyCollection } from '../../api/lobbyinfo';
 import { storage } from '../firebase/firebase';
 import { useNavigate  } from 'react-router-dom'
 import { 
@@ -28,6 +29,11 @@ function Edit() {
       return UserCollection.findOne({'username':`${user.username}`});
     });
 
+    const lobbyInfo = useTracker(() => {
+      Meteor.subscribe('allUsers');
+      return LobbyCollection.findOne({'username':`${user.username}`});
+    });
+
     function save(){
       UserCollection.update(userInfo._id, {
           $set: {
@@ -48,6 +54,11 @@ function Edit() {
               profileurl: url,
             }
           });
+          LobbyCollection.update(lobbyInfo._id, {
+            $set: {
+              profileurl: url,
+            }
+          });
         })
       })
     }
@@ -60,11 +71,7 @@ function Edit() {
                 {userlist.filter(lists => lists.username===user.username).map((lists, index)=>{
                   return(
                     <div key={index} className='profile-image'>
-                      {lists.profileurl===null?
-                        <img alt='your-picture' src='https://picsum.photos/200' />
-                          :
                         <img alt='your-picture' src={`${lists.profileurl}`} />
-                      }
                     </div>
                     )
                 })}

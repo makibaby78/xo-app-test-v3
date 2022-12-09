@@ -13,9 +13,9 @@ function Register() {
 
   const submit = e => {
     e.preventDefault();
-    Meteor.call('userinfo.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), email: email, password: password })
+    Meteor.call('userinfo.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), email: email, password: password, profileurl: 'https://picsum.photos/200', })
 
-    Meteor.call('lobby.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), lobby: false, opponent: null, board: Array(9).fill(null)})
+    Meteor.call('lobby.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), lobby: false, opponent: null, board: Array(9).fill(null), profileurl: 'https://picsum.photos/200',})
 
     Accounts.createUser({
       username: username,
@@ -30,7 +30,6 @@ function Register() {
         <h3>Register</h3>
         <form onSubmit={submit} className="login-form">
           <div className='il-block'>
-            <label htmlFor="firstname">Firstname</label>
             <input
               type="text"
               placeholder="Firstname"
@@ -41,7 +40,6 @@ function Register() {
           </div>
 
           <div className='il-block'>
-            <label htmlFor="lastname">Lastname</label>
             <input
               type="text"
               placeholder="Lastname"
@@ -52,7 +50,6 @@ function Register() {
           </div>
 
           <div className='il-block'>
-            <label htmlFor="email">Email</label>
             <input
               type="text"
               placeholder="Email"
@@ -63,7 +60,6 @@ function Register() {
           </div>
 
           <div className='il-block'>
-            <label htmlFor="username">Username</label>
             <input
               type="text"
               placeholder="Username"
@@ -74,7 +70,6 @@ function Register() {
           </div>
 
           <div className='il-block'>
-            <label htmlFor="password">Password</label>
             <input
               type="password"
               placeholder="Password"

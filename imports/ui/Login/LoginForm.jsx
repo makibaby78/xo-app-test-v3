@@ -20,7 +20,6 @@ export const LoginForm = () => {
       <h3>Login</h3>
       <form onSubmit={submit} className="login-form">
         <div className='il-block'>
-          <label htmlFor="username">Username</label>
           <input
             type="text"
             placeholder="Username"
@@ -31,7 +30,6 @@ export const LoginForm = () => {
         </div>
 
         <div className='il-block'>
-          <label htmlFor="password">Password</label>
           <input
             type="password"
             placeholder="Password"

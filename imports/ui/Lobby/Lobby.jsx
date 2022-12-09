@@ -27,7 +27,7 @@ function Lobby() {
  
   const otherLobby = (username) => {
     const lobbyinfo = LobbyCollection.findOne({'username':`${username}`});
-    Meteor.call('lobby.update', { lobbyId: lobbyinfo._id, opponentName: lobbyOwnerInfo.firstname, lobbyStat: true })
+    Meteor.call('lobby.update', { lobbyId: lobbyinfo._id, opponentName: lobbyOwnerInfo.firstname, lobbyStat: true, opponenturl: lobbyOwnerInfo.profileurl, })
     LobbyCollection.update(lobbyUserInfo._id, {
         $set: {
             lobbyname: lobbyinfo.firstname,
@@ -36,6 +36,7 @@ function Lobby() {
     });
     navigate("/otherlobby");
   }
+
   const closeLobby = (id) => {
     Meteor.call('lobby.update', { 
       lobbyId: id, 

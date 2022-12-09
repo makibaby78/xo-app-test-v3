@@ -89,7 +89,6 @@ function MyLobby() {
               stopper: 'stop',
             }
           });
-          console.log("Draw")
         }
       }
     }
@@ -153,8 +152,26 @@ function MyLobby() {
               </div>
             </div>
             <div className={`pt-wrapper ${lists.playerturn} ${lists.stopper}`}>
-              <div className='pt players-turn-x'>YOUR TURN</div>
-              <div className='pt players-turn-o'>OPPONENTS TURN</div>
+              <div className='pt players-turn-x'>
+                <div className='pt-ptx-inner'>
+                  <div className='pt-owner-image'>
+                    <img alt='your-picture' src={`${lists.profileurl}`} />
+                  </div>
+                  <div className='pt-text-style'>
+                    <span>YOUR TURN</span>
+                  </div>                            
+                </div>
+              </div>
+              <div className='pt players-turn-o'>
+                <div className='pt-ptx-inner'> 
+                  <div className='pt-text-style'>
+                    <span>OPPONENTS TURN</span>
+                  </div>
+                  <div className='pt-owner-image'>
+                    <img alt='your-picture' src={`${lists.opponenturl}`} />
+                  </div> 
+                </div>
+              </div>
             </div>
               <div key={lists._id} className='xo-content'>
                   <div>   

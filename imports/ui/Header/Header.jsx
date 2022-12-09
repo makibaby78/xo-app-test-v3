@@ -65,13 +65,8 @@ function Header() {
                   return(
                         <div key={index} className='lg-btn'>
                             <div onClick={hideSettings} className='header-profile-image'>
-                            {lists.profileurl===null?
-                                <img alt='your-picture' src='https://picsum.photos/200' />
-                                :
                                 <img alt='your-picture' src={`${lists.profileurl}`} />
-                            }
                             </div>
-                            
                             <div className={`header-options ${hide}`}>
                                 <div className='h-option header-name'><h4>{lists.firstname} {lists.lastname}</h4></div>
                                 <div onClick={edit} className='h-option header-edit'>Settings</div>
