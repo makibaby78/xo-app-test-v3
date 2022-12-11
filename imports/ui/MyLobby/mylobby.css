@@ -201,7 +201,7 @@
     transition-duration: 0.2s;
     font-size: 75px;
 }
-button.nxt-btn {
+button.rd-btn {
     padding: 8px 12px;
     border-radius: 5px;
     border: none;
@@ -213,9 +213,30 @@ button.nxt-btn {
     font-size: 16px;
     transition-duration: 0.2s;
 }
-button.nxt-btn:hover {
+button.rd-btn:hover {
     background-color: #40d167;
     transition-duration: 0.2s;
+}
+.nxt-btn {
+    background-color: #0000008c;
+    font-weight: 600;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: .2s;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+}
+.nxt-btn.otherlobby-effect{
+    cursor: unset;
+    background-color: transparent;
+    color: transparent;
+}
+.ready-x.ready-o .nxt-btn{
+    color: #fff;
+    background-color: #34a853;
 }
 .mlw-board h3{
     text-align: center;
@@ -249,4 +270,27 @@ button.nxt-btn:hover {
     justify-content: center;
     color: #Fff;
     font-size: 30px;
+}
+/*ready feature style*/
+.ready-owner-btn, .ready-opponent-btn {
+    cursor: pointer;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    width: fit-content;
+    margin: auto;
+    border-radius: 50px;
+    transition-duration: 0.2s;
+}
+.ready-x .ready-owner-btn {
+    background-color: green;
+    transition-duration: 0.2s;
+}
+.ready-o .ready-opponent-btn {
+    background-color: green;
+    transition-duration: 0.2s;
+}
+.nxt-wrapper-btn {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
 }

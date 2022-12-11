@@ -24,7 +24,7 @@ function MyLobby() {
           playerfirstturn: 'O',
         }
       })
-    }else if(turn==='O'){
+    }else{
       LobbyCollection.update(mylobbyinfo._id, {
         $set: {
           playerfirstturn: 'X'
@@ -36,7 +36,7 @@ function MyLobby() {
   function moveTracker(index){
     let newBoxes = [...allLobby.filter(lists => lists.username===user.username)[0].board];
     let newBoxStat = [...allLobby.filter(lists => lists.username===user.username)[0].boxstat];
-    if(mylobbyinfo.playerturn==='X'){
+    if(mylobbyinfo.playerturn!=='X') return; 
       if(newBoxes[index]===null){
         newBoxStat.splice(index, 1, true);
         newBoxes[index] = mylobbyinfo.playerturn;
@@ -56,7 +56,6 @@ function MyLobby() {
         newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
         newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
         newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
-          playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
           LobbyCollection.update(mylobbyinfo._id, {
             $set: {
               winner: 'X',
@@ -72,7 +71,6 @@ function MyLobby() {
         newBoxes[2]==='O'&&newBoxes[5]==='O'&&newBoxes[8]==='O'||
         newBoxes[0]==='O'&&newBoxes[4]==='O'&&newBoxes[8]==='O'||
         newBoxes[2]==='O'&&newBoxes[4]==='O'&&newBoxes[6]==='O'){
-          playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
           LobbyCollection.update(mylobbyinfo._id, {
             $set: {
               winner: 'O',
@@ -81,7 +79,6 @@ function MyLobby() {
             }
           });
         }else if(mylobbyinfo.boxcounter===9){
-          playerfirst(allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn);
           LobbyCollection.update(mylobbyinfo._id, {
             $set: {
               winner: 'Draw',
@@ -91,9 +88,27 @@ function MyLobby() {
           });
         }
       }
+  }
+  function readyBtn(){
+    let firstmove;
+    firstmove = allLobby.filter(lists => lists.username===user.username)[0].playerfirstturn;
+    playerfirst(firstmove);
+    if(mylobbyinfo.xready!=='ready-x'){
+      LobbyCollection.update(mylobbyinfo._id, {
+        $set: {
+          xready: 'ready-x',
+        }
+      });
+    }else{
+      LobbyCollection.update(mylobbyinfo._id, {
+        $set: {
+          xready: '',
+        }
+      });
     }
   }
   function nextround(winner){
+    if(mylobbyinfo.xready!=='ready-x'||mylobbyinfo.oready!=='ready-o') return;
     if(winner==='X'){
       LobbyCollection.update(mylobbyinfo._id, {
         $set: {
@@ -104,6 +119,8 @@ function MyLobby() {
           xscore: mylobbyinfo.xscore + 1,
           boxcounter: 1,
           stopper: null,
+          xready: null,
+          oready: null,
         }
       });
     }else if(winner==='O'){
@@ -116,6 +133,8 @@ function MyLobby() {
           oscore: mylobbyinfo.oscore + 1,
           boxcounter: 1,
           stopper: null,
+          xready: null,
+          oready: null,
         }
       });
     }else if(winner==='Draw'){
@@ -127,6 +146,8 @@ function MyLobby() {
           winner: null,
           boxcounter: 1,
           stopper: null,
+          xready: null,
+          oready: null,
         }
       });
     }
@@ -168,7 +189,8 @@ function MyLobby() {
                     <span>OPPONENTS TURN</span>
                   </div>
                   <div className='pt-owner-image'>
-                    <img alt='your-picture' src={`${lists.opponenturl}`} />
+                    <img alt='your-picture' src={lists.opponenturl===null
+                    ?'https://picsum.photos/200':`${lists.opponenturl}`} />
                   </div> 
                 </div>
               </div>
@@ -217,9 +239,19 @@ function MyLobby() {
                     </div>
                   </div>
               </div>
-            <div className={`next-round ${lists.winner}`}>
+            <div className={`next-round ${lists.winner} ${lists.xready} ${lists.oready}`}>
               <h5>{lists.wintext}</h5>
-              <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
+              <div className='nxt-wrapper-btn'>
+                <div className='rn-wrapper'>
+                  <div className='ready-owner-btn'>✓</div>
+                  <button onClick={readyBtn} className='rd-btn'>Player X Ready</button>
+                </div>
+                <div className='rn-wrapper'>
+                  <div className='ready-opponent-btn'>✓</div>
+                  <button className='rd-btn' >Player O Ready</button>
+                </div>
+              </div>
+              <button onClick={()=>{nextround(lists.winner)}} className='nxt-btn' >Proceed to Next Round</button>
             </div>
           </div>
           )

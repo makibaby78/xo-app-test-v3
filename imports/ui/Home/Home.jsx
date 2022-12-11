@@ -33,6 +33,8 @@ function Home() {
             boxcounter: 1,
             stopper: null,
             opponenturl: null,
+            xready: null,
+            oready: null,
           }
         });
         navigate("/mylobby");

@@ -22,7 +22,7 @@ function OtherLobby() {
             playerfirstturn: 'O',
           }
         })
-      }else if(turn==='O'){
+      }if(turn==='O'){
         LobbyCollection.update(mylobbyinfo._id, {
           $set: {
             playerfirstturn: 'X'
@@ -33,11 +33,13 @@ function OtherLobby() {
     
     function moveTracker(index){
         const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
+        let firstmove;
+        firstmove = allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn;
 
         let newBoxStat = [...allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].boxstat];
         let newBoxes = [...allLobby.filter(lists => lists.username===mylobbyinfo.currentlobby)[0].board];
-        if(otherlobbyinfo.playerturn==='O'){
-          if(newBoxes[index]===null){
+        if(otherlobbyinfo.playerturn!=='O') return;
+        if(newBoxes[index]!==null) return ;
             newBoxStat.splice(index, 1, true);
             newBoxes[index] = otherlobbyinfo.playerturn;
             LobbyCollection.update(otherlobbyinfo._id, {
@@ -56,7 +58,7 @@ function OtherLobby() {
             newBoxes[2]==='O'&&newBoxes[5]==='O'&&newBoxes[8]==='O'||
             newBoxes[0]==='O'&&newBoxes[4]==='O'&&newBoxes[8]==='O'||
             newBoxes[2]==='O'&&newBoxes[4]==='O'&&newBoxes[6]==='O'){
-              playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
+              playerfirst(firstmove);
               LobbyCollection.update(otherlobbyinfo._id, {
                 $set: {
                   winner: 'O',
@@ -72,7 +74,7 @@ function OtherLobby() {
             newBoxes[2]==='X'&&newBoxes[5]==='X'&&newBoxes[8]==='X'||
             newBoxes[0]==='X'&&newBoxes[4]==='X'&&newBoxes[8]==='X'||
             newBoxes[2]==='X'&&newBoxes[4]==='X'&&newBoxes[6]==='X'){
-              playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
+              playerfirst(firstmove);
               LobbyCollection.update(otherlobbyinfo._id, {
                 $set: {
                   winner: 'X',
@@ -81,7 +83,7 @@ function OtherLobby() {
                 }
               });
             }else if(otherlobbyinfo.boxcounter===9){
-              playerfirst(allLobby.filter(lists => lists.username===otherlobbyinfo.username)[0].playerfirstturn);
+              playerfirst(firstmove);
               LobbyCollection.update(otherlobbyinfo._id, {
                 $set: {
                   winner: 'Draw',
@@ -90,46 +92,19 @@ function OtherLobby() {
                 }
                 });
             }
-          }
-        }
     }
-
-    function nextround(winner){
+    function readyBtn(){
       const otherlobbyinfo = LobbyCollection.findOne({'username':`${mylobbyinfo.currentlobby}`});
-
-      if(winner==='X'){
+      if(otherlobbyinfo.oready!=='ready-o'){
         LobbyCollection.update(otherlobbyinfo._id, {
           $set: {
-            board: Array(9).fill(null),
-            boxstat: Array(9).fill(false),
-            playerturn: otherlobbyinfo.playerfirstturn,
-            winner: null,
-            xscore: otherlobbyinfo.xscore + 1,
-            boxcounter: 1,
-            stopper: null,
+            oready: 'ready-o',
           }
         });
-      }else if(winner==='O'){
+      }else{
         LobbyCollection.update(otherlobbyinfo._id, {
           $set: {
-            board: Array(9).fill(null),
-            boxstat: Array(9).fill(false),
-            playerturn: otherlobbyinfo.playerfirstturn,
-            winner: null,
-            oscore: otherlobbyinfo.oscore + 1,
-            boxcounter: 1,
-            stopper: null,
-          }
-        });
-      }else if(winner==='Draw'){
-        LobbyCollection.update(otherlobbyinfo._id, {
-          $set: {
-            board: Array(9).fill(null),
-            boxstat: Array(9).fill(false),
-            playerturn: otherlobbyinfo.playerfirstturn,
-            winner: null,
-            boxcounter: 1,
-            stopper: null,
+            oready: '',
           }
         });
       }
@@ -218,9 +193,19 @@ function OtherLobby() {
                   </div>
                 </div>
               </div>
-              <div className={`next-round ${lists.winner}`}>
+              <div className={`next-round ${lists.winner} ${lists.xready} ${lists.oready}`}>
                 <h5>{lists.wintext}</h5>
-              <button className='nxt-btn' onClick={()=>{nextround(lists.winner)}}>Proceed to next round</button>
+                <div className='nxt-wrapper-btn'>
+                  <div className='rn-wrapper'>
+                    <div className='ready-owner-btn'>✓</div>
+                    <button className='rd-btn'>Player X Ready</button>
+                  </div>
+                  <div className='rn-wrapper'>
+                    <div className='ready-opponent-btn'>✓</div>
+                    <button onClick={readyBtn} className='rd-btn' >Player O Ready</button>
+                  </div>
+                </div>
+                <button className='nxt-btn otherlobby-effect'>Wait for lobby owner</button>
             </div>
             </div>
         )})}
