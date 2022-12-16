@@ -24,7 +24,8 @@ function Header() {
         Meteor.subscribe('allUsers');
         return UserCollection.find().fetch();
     });
-
+    console.log(userlist)
+    
     const lobbyinfo = useTracker(() => {
         Meteor.subscribe('allLobby');
         return LobbyCollection.findOne({'username':`${user.username}`});
