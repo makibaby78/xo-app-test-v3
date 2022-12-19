@@ -109,45 +109,28 @@ function MyLobby() {
   }
   function nextround(winner){
     if(mylobbyinfo.xready!=='ready-x'||mylobbyinfo.oready!=='ready-o') return;
+    LobbyCollection.update(mylobbyinfo._id, {
+      $set: {
+        board: Array(9).fill(null),
+        boxstat: Array(9).fill(false),
+        playerturn: mylobbyinfo.playerfirstturn,
+        winner: null,
+        boxcounter: 1,
+        stopper: null,
+        xready: null,
+        oready: null,
+      }
+    });
     if(winner==='X'){
       LobbyCollection.update(mylobbyinfo._id, {
         $set: {
-          board: Array(9).fill(null),
-          boxstat: Array(9).fill(false),
-          playerturn: mylobbyinfo.playerfirstturn,
-          winner: null,
           xscore: mylobbyinfo.xscore + 1,
-          boxcounter: 1,
-          stopper: null,
-          xready: null,
-          oready: null,
         }
       });
     }else if(winner==='O'){
       LobbyCollection.update(mylobbyinfo._id, {
         $set: {
-          board: Array(9).fill(null),
-          boxstat: Array(9).fill(false),
-          playerturn: mylobbyinfo.playerfirstturn,
-          winner: null,
           oscore: mylobbyinfo.oscore + 1,
-          boxcounter: 1,
-          stopper: null,
-          xready: null,
-          oready: null,
-        }
-      });
-    }else if(winner==='Draw'){
-      LobbyCollection.update(mylobbyinfo._id, {
-        $set: {
-          board: Array(9).fill(null),
-          boxstat: Array(9).fill(false),
-          playerturn: mylobbyinfo.playerfirstturn,
-          winner: null,
-          boxcounter: 1,
-          stopper: null,
-          xready: null,
-          oready: null,
         }
       });
     }
@@ -251,7 +234,12 @@ function MyLobby() {
                   <button className='rd-btn' >Player O Ready</button>
                 </div>
               </div>
+              {lists.winner==='Start'?
+              <button onClick={()=>{nextround(lists.winner)}} className='nxt-btn' >Start</button>
+              :
               <button onClick={()=>{nextround(lists.winner)}} className='nxt-btn' >Proceed to Next Round</button>
+              }
+              
             </div>
           </div>
           )

@@ -154,7 +154,7 @@
 .xo-next-round {
     display: none;
 }
-.xo-next-round.O, .xo-next-round.X, .xo-next-round.Draw {
+.xo-next-round.O, .xo-next-round.X, .xo-next-round.Draw, .xo-next-round.Start{
     display: flex;
     position: absolute;
     top: 0;
@@ -255,7 +255,7 @@ button.rd-btn:hover {
 .xo-content h4 {
     text-align: center;
 }
-.next-round.O, .next-round.X, .next-round.Draw {
+.next-round.O, .next-round.X, .next-round.Draw, .next-round.Start{
     position: fixed;
     top: 0;
     background-color: #000000d9;

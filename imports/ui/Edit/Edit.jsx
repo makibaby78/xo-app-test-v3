@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { UserCollection } from '../../api/userinfo';
@@ -14,15 +14,24 @@ import './edit.css';
 
 function Edit() {
     const user = useTracker(() => Meteor.user());
-    
-    const [lastname, setLastname] = useState('');
-    const [firstname, setFirstname] = useState('');
-    const navigate = useNavigate();
 
     const userlist = useTracker(() => {
       Meteor.subscribe('allUsers');
       return UserCollection.find().fetch();
     });
+
+    const [lastname, setLastname] = useState('');
+    const [firstname, setFirstname] = useState('');
+
+    useEffect(() => {
+      const myTimeout = setTimeout(()=>{
+        setFirstname(userlist.filter(lists => lists.username===user.username)[0].firstname)
+        setLastname(userlist.filter(lists => lists.username===user.username)[0].lastname)
+        clearTimeout(myTimeout)
+      }, 100);
+    }, [])
+    
+    const navigate = useNavigate();
 
     const userInfo = useTracker(() => {
       Meteor.subscribe('allUsers');
@@ -41,6 +50,12 @@ function Edit() {
             lastname: lastname.charAt(0).toUpperCase()+lastname.slice(1),
           }
       });
+      LobbyCollection.update(lobbyInfo._id, {
+        $set: {
+          firstname: firstname.charAt(0).toUpperCase()+firstname.slice(1),
+          lastname: lastname.charAt(0).toUpperCase()+lastname.slice(1),
+        }
+    });
       alert("Profile updated")
     }
     const [imageUpload, setImageUpload] = useState(null);

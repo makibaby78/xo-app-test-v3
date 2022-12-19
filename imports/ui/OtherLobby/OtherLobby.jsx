@@ -205,8 +205,12 @@ function OtherLobby() {
                     <button onClick={readyBtn} className='rd-btn' >Player O Ready</button>
                   </div>
                 </div>
-                <button className='nxt-btn otherlobby-effect'>Wait for lobby owner</button>
-            </div>
+                {lists.winner==='Start'?
+                  <button className='nxt-btn otherlobby-effect'>Wait for the lobby owner response</button>
+                  :
+                  <button className='nxt-btn otherlobby-effect'>Wait for the lobby owner response</button>
+                }
+              </div>
             </div>
         )})}
   </div>

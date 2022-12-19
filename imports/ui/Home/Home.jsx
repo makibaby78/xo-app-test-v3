@@ -27,7 +27,7 @@ function Home() {
             playerturn: 'X',
             playerfirstturn: 'X',
             opponent: null,
-            winner: null,
+            winner: 'Start',
             oscore: 0,
             xscore: 0,
             boxcounter: 1,
