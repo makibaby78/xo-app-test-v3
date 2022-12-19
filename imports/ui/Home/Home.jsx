@@ -28,6 +28,7 @@ function Home() {
             playerfirstturn: 'X',
             opponent: null,
             winner: 'Start',
+            wintext: 'TikTakToe',
             oscore: 0,
             xscore: 0,
             boxcounter: 1,
