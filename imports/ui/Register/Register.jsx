@@ -6,6 +6,7 @@ import { Link, useNavigate  } from 'react-router-dom'
 function Register() { 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ function Register() {
 
   const submit = e => {
     e.preventDefault();
+    if(confirmpassword!=password) return console.log("password does not match")
     Meteor.call('userinfo.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), email: email, password: password, profileurl: 'https://picsum.photos/200', })
 
     Meteor.call('lobby.insert', { username:username, firstname:firstname.charAt(0).toUpperCase()+firstname.slice(1), lastname:lastname.charAt(0).toUpperCase()+lastname.slice(1), lobby: false, opponent: null, board: Array(9).fill(null), profileurl: 'https://picsum.photos/200',})
@@ -76,6 +78,16 @@ function Register() {
               name="password"
               required
               onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div className='il-block'>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="confirm-password"
+              required
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
 
